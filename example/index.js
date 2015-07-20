@@ -11,3 +11,5 @@ var aIns = e.addInstance({ name: "A" })
 
 // Connect A -> B
 aIns.connect(bIns);
+
+console.log(JSON.stringify(e, null, 4));
