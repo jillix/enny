@@ -11,5 +11,8 @@ var aIns = e.addInstance({ name: "A" })
 
 // Connect A -> B
 aIns.connect(bIns);
+aIns.addFlow([{
+    event: "foo", once: true
+}])
 
 console.log(JSON.stringify(e, null, 4));
