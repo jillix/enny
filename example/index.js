@@ -13,6 +13,8 @@ var aIns = e.addInstance({ name: "A" })
 aIns.connect(bIns);
 aIns.addFlow([{
     event: "foo", once: true
+}, {
+    handler: "foo", args: [1, 2, 3], isStream: false, type: "dataHandler"
 }])
 
 console.log(JSON.stringify(e, null, 4));
