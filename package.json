@@ -20,9 +20,7 @@
   },
   "homepage": "https://github.com/IonicaBizau/enny",
   "dependencies": {
-    "iterate-object": "^1.1.0",
     "deffy": "^2.0.0",
-    "set-or-get": "^1.0.0",
     "map-o": "^1.0.0",
     "typpy": "^2.1.0",
     "ul": "^5.0.0"
