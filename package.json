@@ -1,6 +1,7 @@
 {
   "name": "enny",
   "version": "1.0.0",
+  "private": true,
   "description": "Generate Engine compositions from human-readable inputs.",
   "main": "lib/index.js",
   "directories": {
@@ -14,7 +15,6 @@
     "url": "https://github.com/IonicaBizau/enny.git"
   },
   "author": "jillix <contact@jillix.com>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/IonicaBizau/enny/issues"
   },
