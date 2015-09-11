@@ -48,3 +48,8 @@ console.log(JSON.stringify(e, null, 4));
 
 console.log(new Enny.FlowComponent({ error: "foo", args: ["bar", "baz"]}).toFlow());
 // => ["!foo", "bar", "baz"]
+
+console.log(new Enny.FlowComponent({ emit: "some-event" }).toFlow());
+console.log(new Enny.FlowComponent({ emit: "some-event", to: "some-instance" }).toFlow());
+console.log(new Enny.FlowComponent({ link: "server-event", to: "some-instance" }).toFlow());
+// => ["!foo", "bar", "baz"]
