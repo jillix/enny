@@ -45,3 +45,6 @@ console.log(JSON.stringify(e, null, 4));
 //         "name": "B"
 //     }
 // }
+
+console.log(new Enny.FlowComponent({ error: "foo", args: ["bar", "baz"]}).toFlow());
+// => ["!foo", "bar", "baz"]
