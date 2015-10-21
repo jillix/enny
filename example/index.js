@@ -55,3 +55,9 @@ console.log(new Enny.FlowComponent({ link: "server-event", to: "some-instance" }
 // => ["!foo", "bar", "baz"]
 
 console.log(new Enny.FlowComponent({ stream: "someStream", to: "some-instance" }).toFlow());
+
+console.log(new Enny.FlowElement([
+    { event: "listener-event" }
+  , { error: "error-handler" }
+  , { stream: "someStream", to: "some-instance" }
+]).toFlow());
