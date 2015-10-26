@@ -55,17 +55,8 @@ console.log(JSON.stringify(e, null, 4));
 //                 "B"
 //             ],
 //             "flow": [
-//                 [
-//                     [
-//                         "foo"
-//                     ],
-//                     [
-//                         ":foo",
-//                         1,
-//                         2,
-//                         3
-//                     ]
-//                 ]
+//                 [],
+//                 []
 //             ]
 //         }
 //     },
@@ -73,6 +64,31 @@ console.log(JSON.stringify(e, null, 4));
 //         "name": "B"
 //     }
 // }
+
+console.log(new Enny.FlowComponent({ error: "foo", args: ["bar", "baz"]}).toFlow());
+// => ["!foo", "bar", "baz"]
+
+console.log(new Enny.FlowComponent({ emit: "some-event" }).toFlow());
+// => [ 'flow', 'some-event' ]
+
+console.log(new Enny.FlowComponent({ emit: "some-event", to: "some-instance" }).toFlow());
+// => [ 'some-instance/flow', 'some-event' ]
+
+console.log(new Enny.FlowComponent({ link: "server-event", to: "some-instance" }).toFlow());
+// => [ 'flow', '@some-instance/server-event' ]
+
+console.log(new Enny.FlowComponent({ stream: "someStream", to: "some-instance" }).toFlow());
+// => some-instance/someStream
+
+console.log(new Enny.FlowElement([
+    { event: "listener-event" }
+  , { error: "error-handler" }
+  , { stream: "someStream", to: "some-instance" }
+]).toFlow());
+// =>
+// [ 'listener-event',
+//   '!error-handler',
+//   'some-instance/someStream' ]
 
 ```
 
@@ -89,6 +105,14 @@ Converts the internal composition into an object.
 
 #### Return
 - **Object** The modified composition.
+
+### `renameInstance(oldName, newName, cb)`
+Renames the specified instance. This will update the instance references in the entire app.
+
+#### Params
+- **String** `oldName`: The old instance name.
+- **String** `newName`: The new instance name.
+- **Function** `cb`: The callback function.
 
 ### `toJSON()`
 This function is called internally when `JSON.stringify`-ing the things.
@@ -129,7 +153,14 @@ Connect two instances.
 #### Return
 - **Instance** The current instance.
 
-### `addFlow(flElm, options, callback)`
+### `addFlow(flow, options)`
+Adds a set of FlowElements to the current instance.
+
+#### Params
+- **Array** `flow`: An array of human-readable objects, interpreted by `FlowElement`.
+- **Object** `options`: The object passed to `FlowElement`.
+
+### `addFlowElement(flElm, options, callback)`
 Adds flow configuration.
 
 #### Params

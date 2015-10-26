@@ -27,17 +27,8 @@ console.log(JSON.stringify(e, null, 4));
 //                 "B"
 //             ],
 //             "flow": [
-//                 [
-//                     [
-//                         "foo"
-//                     ],
-//                     [
-//                         ":foo",
-//                         1,
-//                         2,
-//                         3
-//                     ]
-//                 ]
+//                 [],
+//                 []
 //             ]
 //         }
 //     },
@@ -50,14 +41,23 @@ console.log(new Enny.FlowComponent({ error: "foo", args: ["bar", "baz"]}).toFlow
 // => ["!foo", "bar", "baz"]
 
 console.log(new Enny.FlowComponent({ emit: "some-event" }).toFlow());
+// => [ 'flow', 'some-event' ]
+
 console.log(new Enny.FlowComponent({ emit: "some-event", to: "some-instance" }).toFlow());
+// => [ 'some-instance/flow', 'some-event' ]
+
 console.log(new Enny.FlowComponent({ link: "server-event", to: "some-instance" }).toFlow());
-// => ["!foo", "bar", "baz"]
+// => [ 'flow', '@some-instance/server-event' ]
 
 console.log(new Enny.FlowComponent({ stream: "someStream", to: "some-instance" }).toFlow());
+// => some-instance/someStream
 
 console.log(new Enny.FlowElement([
     { event: "listener-event" }
   , { error: "error-handler" }
   , { stream: "someStream", to: "some-instance" }
 ]).toFlow());
+// =>
+// [ 'listener-event',
+//   '!error-handler',
+//   'some-instance/someStream' ]
