@@ -9,4 +9,4 @@ var aIns = e.addInstance({ name: "A" })
   , bIns = e.addInstance({ name: "B" })
   ;
 
-console.log(aIns);
+console.log(e.toObject());
