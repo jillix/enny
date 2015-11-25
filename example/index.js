@@ -10,6 +10,7 @@ var aIns = e.addInstance({ name: "A" })
   ;
 
 aIns.on("someEvent", {
+    emit: "eventToEmit",
     to: "B"
 });
 
