@@ -9,4 +9,8 @@ var aIns = e.addInstance({ name: "A" })
   , bIns = e.addInstance({ name: "B" })
   ;
 
+aIns.on("someEvent", {
+    to: "B"
+});
+
 console.log(e.toObject());
