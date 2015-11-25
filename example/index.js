@@ -13,4 +13,4 @@ aIns.on("someEvent", {
     to: "B"
 });
 
-console.log(e.toObject());
+console.log(JSON.stringify(e.toObject(), null, 4));
