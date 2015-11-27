@@ -18,6 +18,9 @@ aIns.on("someEvent", {
     dataHandler: "myDataHandler"
   , to: "myInstance"
   , once: true
+  , data: {
+        some: "data"
+    }
 }, "errorEvent", "endEvent");
 
 console.log(JSON.stringify(e.toObject(), null, 4));
@@ -31,6 +34,12 @@ console.log(JSON.stringify(e.toObject(), null, 4));
 //                         ">>eventToEmit",
 //                         {
 //                             "to": "B"
+//                         }
+//                     ],
+//                     [
+//                         ".myInstance/myDataHandler",
+//                         {
+//                             "some": "data"
 //                         }
 //                     ]
 //                 ],
