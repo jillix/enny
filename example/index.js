@@ -10,18 +10,26 @@ var aIns = e.addInstance({ name: "A" })
   ;
 
 aIns.on("someEvent", {
-    emit: "eventToEmit",
-    to: "B"
+    emit: "eventToEmit"
+  , to: "B"
+  , leaking: true
 }, "errorEvent", "endEvent");
 
-aIns.on("someEvent", {
-    dataHandler: "myDataHandler"
-  , to: "myInstance"
-  , once: true
-  , data: {
-        some: "data"
+aIns.on("someEvent", [
+    {
+        dataHandler: "myDataHandler"
+      , to: "myInstance"
+      , once: true
+      , data: {
+            some: "data"
+        }
     }
-}, "errorEvent", "endEvent");
+  , {
+        streamHandler: "myStreamHandler"
+      , leaking: true
+    }
+]);
+
 
 console.log(JSON.stringify(e.toObject(), null, 4));
 // =>
