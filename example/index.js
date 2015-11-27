@@ -14,6 +14,12 @@ aIns.on("someEvent", {
     to: "B"
 }, "errorEvent", "endEvent");
 
+aIns.on("someEvent", {
+    dataHandler: "myDataHandler"
+  , to: "myInstance"
+  , once: true
+}, "errorEvent", "endEvent");
+
 console.log(JSON.stringify(e.toObject(), null, 4));
 // =>
 // {
