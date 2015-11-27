@@ -12,6 +12,30 @@ var aIns = e.addInstance({ name: "A" })
 aIns.on("someEvent", {
     emit: "eventToEmit",
     to: "B"
-});
+}, "errorEvent", "endEvent");
 
 console.log(JSON.stringify(e.toObject(), null, 4));
+// =>
+// {
+//     "A": {
+//         "flow": {
+//             "someEvent": {
+//                 "data": [
+//                     [
+//                         ">>eventToEmit",
+//                         {
+//                             "to": "B"
+//                         }
+//                     ]
+//                 ],
+//                 "error": "errorEvent",
+//                 "end": "endEvent"
+//             }
+//         },
+//         "name": "A"
+//     },
+//     "B": {
+//         "flow": {},
+//         "name": "B"
+//     }
+// }
