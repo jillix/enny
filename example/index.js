@@ -39,7 +39,7 @@ console.log(JSON.stringify(e.toObject(), null, 4));
 //             "someEvent": {
 //                 "data": [
 //                     [
-//                         ">>eventToEmit",
+//                         "|*eventToEmit",
 //                         {
 //                             "to": "B"
 //                         }
@@ -49,7 +49,8 @@ console.log(JSON.stringify(e.toObject(), null, 4));
 //                         {
 //                             "some": "data"
 //                         }
-//                     ]
+//                     ],
+//                     "|*myStreamHandler"
 //                 ],
 //                 "error": "errorEvent",
 //                 "end": "endEvent"
