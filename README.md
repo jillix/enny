@@ -5,7 +5,7 @@ Generate Engine compositions from human-readable inputs.
 ## Installation
 
 ```sh
-$ npm i enny
+$ npm i --save enny
 ```
 
 ## Example
@@ -22,58 +22,59 @@ var aIns = e.addInstance({ name: "A" })
   , bIns = e.addInstance({ name: "B" })
   ;
 
-// Connect A -> B
-aIns.connect(bIns);
-aIns.addFlow([{
-    event: "foo", once: true
-}, {
-    handler: "foo", args: [1, 2, 3], isStream: false, type: "dataHandler"
-}])
+aIns.on("someEvent", {
+    emit: "eventToEmit"
+  , to: "B"
+  , leaking: true
+}, "errorEvent", "endEvent");
 
-console.log(JSON.stringify(e, null, 4));
+aIns.on("someEvent", [
+    {
+        dataHandler: "myDataHandler"
+      , to: "myInstance"
+      , once: true
+      , data: {
+            some: "data"
+        }
+    }
+  , {
+        streamHandler: "myStreamHandler"
+      , leaking: true
+    }
+]);
+
+console.log(JSON.stringify(e.toObject(), null, 4));
 // =>
 // {
 //     "A": {
-//         "name": "A",
-//         "client": {
-//             "load": [
-//                 "B"
-//             ],
-//             "flow": [
-//                 [],
-//                 []
-//             ]
-//         }
+//         "flow": {
+//             "someEvent": {
+//                 "data": [
+//                     [
+//                         "|*eventToEmit",
+//                         {
+//                             "to": "B"
+//                         }
+//                     ],
+//                     [
+//                         ".myInstance/myDataHandler",
+//                         {
+//                             "some": "data"
+//                         }
+//                     ],
+//                     "|*myStreamHandler"
+//                 ],
+//                 "error": "errorEvent",
+//                 "end": "endEvent"
+//             }
+//         },
+//         "name": "A"
 //     },
 //     "B": {
+//         "flow": {},
 //         "name": "B"
 //     }
 // }
-
-console.log(new Enny.FlowComponent({ error: "foo", args: ["bar", "baz"]}).toFlow());
-// => ["!foo", "bar", "baz"]
-
-console.log(new Enny.FlowComponent({ emit: "some-event" }).toFlow());
-// => [ 'flow', 'some-event' ]
-
-console.log(new Enny.FlowComponent({ emit: "some-event", to: "some-instance" }).toFlow());
-// => [ 'some-instance/flow', 'some-event' ]
-
-console.log(new Enny.FlowComponent({ link: "server-event", to: "some-instance" }).toFlow());
-// => [ 'flow', '@some-instance/server-event' ]
-
-console.log(new Enny.FlowComponent({ stream: "someStream", to: "some-instance" }).toFlow());
-// => some-instance/someStream
-
-console.log(new Enny.FlowElement([
-    { event: "listener-event" }
-  , { error: "error-handler" }
-  , { stream: "someStream", to: "some-instance" }
-]).toFlow());
-// =>
-// [ 'listener-event',
-//   '!error-handler',
-//   'some-instance/someStream' ]
 ```
 
 ## Documentation
@@ -113,133 +114,19 @@ Adds a new instance.
 #### Return
 - **Instance** The instance object.
 
-### `Instance(data, options)`
-Create a new `Instance` (Engine Instance) instance.
-
-#### Params
-- **Object** `data`: The raw Engine instance object.
-- **Object** `options`: An object containing the following fields:
- - `enny` (Enny): The `Enny` instance.
-
-#### Return
-- **Instance** The `Instance` instance.
-
-### `connect(ins, options, callback)`
-Connect two instances.
-
-#### Params
-- **Instance** `ins`: The target instance.
-- **Object|Boolean** `options`: If it's a Boolean value, then it will be interpreted as the `client` field. If it's an object, it should contain the following fields:
- - `client` (Boolean) If `true`, the connection will be on the client side, otherwise on the server (default: `true`).
- - `save` (Boolean) If `true`, the abstract `save` method will be called–this should have a custom implementation (default: `false`).
-- **Function** `callback`: An optional callback function.
-
-#### Return
-- **Instance** The current instance.
-
-### `addFlow(flow, options)`
-Adds a set of FlowElements to the current instance.
-
-#### Params
-- **Array** `flow`: An array of human-readable objects, interpreted by `FlowElement`.
-- **Object** `options`: The object passed to `FlowElement`.
-
-### `addFlowElement(flElm, options, callback)`
-Adds flow configuration.
-
-#### Params
-- **Array** `flElm`: The flow element.
-- **Object** `options`: An object containing the following fields:
- - `client` (Boolean) If `true`, the connection will be on the client side, otherwise on the server (default: `true`).
- - `save` (Boolean) If `true`, the abstract `save` method will be called–this should have a custom implementation (default: `false`).
-- **Function** `callback`: The callback function.
-
-#### Return
-- **Instance** The current instance.
-
-### `toObject()`
-Converts the internal composition into object format.
-
-#### Return
-- **Object** The prepared composition as object.
-
-### `FlowElement(data)`
-Creates a new instance of `FlowElement`.
-
-#### Params
-- **Array** `data`: The flow element.
-
-#### Return
-- **FlowElement** The `FlowElement` instance.
-
-### `toJSON()`
-This is called internally when `JSON.stringify`-ing the things.
-
-#### Return
-- **Array** The array that is stringified.
-
-### `addComponent(data)`
-Adds a new component.
-
-#### Params
-- **FlowComponent|Object** `data`: The flow component object or just an object that is wrapped by FlowComponent.
-
-### `toFlow()`
-Converts the internal data into a Engine syntax flow array.
-
-#### Return
-- **Array** The flow array.
-
-### `Handler(data)`
-Creates a new `Handler` instance.
-
-#### Params
-- **Object** `data`: An object containing the following fields:
- - `to` (String): The target instance name.
- - `args` (Array): Additional arguments in the handler call.
- - `isStream` (Boolean): If `true`, the handler will be a stream handler.
- - `handler` (String): The method name.
- - `isLink` (Boolean): If `true`, the handler will be a server side method (called from the client)–aka *link*.
-
-#### Return
-- **Handler** The `Handler` instance:
-
-### `toFlow()`
-Converts the internal data into a Engine syntax flow array.
-
-#### Return
-- **Array** The Engine syntax array result.
-
-### `FlowComponent(data)`
-Creates anew `FlowComponent` instance.
-
-#### Params
-- **Object** `data`: An object containing the following fields:
- - for event listeners:
-     - `event` (String): The event name.
- - for stream handlers:
-     - `stream` (String): The stream handler name.
- - for client to server calls:
-     - `link` (String): The stream handler name.
-
-#### Return
-- **FlowComponent** The FlowComponent object.
-
-### `toFlow()`
-Converts the internal data into a Engine syntax flow array.
-
-#### Return
-- **Array** The flow array.
-
 ## How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
 
 ## Where is this library used?
 If you are using this library in one of your projects, add it in this list. :sparkles:
 
+ - [`engine-parser`](https://github.com/IonicaBizau/engine-parser) by jillix
+
 ## License
 
-See the [LICENSE](/LICENSE) file.
+[mit][license] © [jillix][website]
 
+[license]: http://showalicense.com/?fullname=jillix%20%3Ccontact%40jillix.com%3E%20(http%3A%2F%2Fjillix.com)&year=2015#license-mit
+[website]: http://jillix.com
 [contributing]: /CONTRIBUTING.md
 [docs]: /DOCUMENTATION.md

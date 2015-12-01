@@ -5,7 +5,8 @@
   "description": "Generate Engine compositions from human-readable inputs.",
   "main": "lib/index.js",
   "directories": {
-    "example": "example"
+    "example": "example",
+    "test": "test"
   },
   "scripts": {
     "test": "node test"
@@ -14,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/IonicaBizau/enny.git"
   },
-  "author": "jillix <contact@jillix.com>",
+  "author": "jillix <contact@jillix.com> (http://jillix.com)",
   "bugs": {
     "url": "https://github.com/IonicaBizau/enny/issues"
   },
@@ -31,5 +32,6 @@
     "typpy": "^2.1.0",
     "ul": "^5.0.0"
   },
+  "license": "MIT",
   "devDependencies": {}
 }
