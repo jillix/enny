@@ -77,43 +77,6 @@ console.log(JSON.stringify(e.toObject(), null, 4));
 // }
 ```
 
-## Documentation
-
-### `Enny()`
-Create a new Enny instance
-
-#### Return
-- **Enny** The `Enny` instance.
-
-### `toObject()`
-Converts the internal composition into an object.
-
-#### Return
-- **Object** The modified composition.
-
-### `renameInstance(oldName, newName, cb)`
-Renames the specified instance. This will update the instance references in the entire app.
-
-#### Params
-- **String** `oldName`: The old instance name.
-- **String** `newName`: The new instance name.
-- **Function** `cb`: The callback function.
-
-### `toJSON()`
-This function is called internally when `JSON.stringify`-ing the things.
-
-#### Return
-- **Object** The object that should be stringified.
-
-### `addInstance(ins)`
-Adds a new instance.
-
-#### Params
-- **Object** `ins`: The Engine instance you want to add.
-
-#### Return
-- **Instance** The instance object.
-
 ## How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
 
@@ -124,7 +87,7 @@ If you are using this library in one of your projects, add it in this list. :spa
 
 ## License
 
-[mit][license] © [jillix][website]
+[MIT][license] © [jillix][website]
 
 [license]: http://showalicense.com/?fullname=jillix%20%3Ccontact%40jillix.com%3E%20(http%3A%2F%2Fjillix.com)&year=2015#license-mit
 [website]: http://jillix.com
