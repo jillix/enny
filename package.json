@@ -1,7 +1,6 @@
 {
   "name": "enny",
   "version": "1.1.0",
-  "private": true,
   "description": "Generate Engine compositions from human-readable inputs.",
   "main": "lib/index.js",
   "directories": {
