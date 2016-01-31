@@ -25,7 +25,7 @@
   ],
   "dependencies": {
     "deffy": "^2.0.0",
-    "engine-flow-types": "^1.0.0",
+    "engine-flow-types": "jillix/engine-flow-types",
     "iterate-object": "^1.1.0",
     "map-o": "^1.0.0",
     "set-or-get": "^1.1.0",
