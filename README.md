@@ -1,6 +1,6 @@
-# enny
+# enny [![Version](https://img.shields.io/npm/v/enny.svg)](https://www.npmjs.com/package/enny) [![Downloads](https://img.shields.io/npm/dt/enny.svg)](https://www.npmjs.com/package/enny)
 
-Generate Engine compositions from human-readable inputs.
+> Generate Engine compositions from human-readable inputs.
 
 ## Installation
 
@@ -76,6 +76,43 @@ console.log(JSON.stringify(e.toObject(), null, 4));
 //     }
 // }
 ```
+
+## Documentation
+
+### `Enny()`
+Create a new Enny instance
+
+#### Return
+- **Enny** The `Enny` instance.
+
+### `toObject()`
+Converts the internal composition into an object.
+
+#### Return
+- **Object** The modified composition.
+
+### `renameInstance(oldName, newName, cb)`
+Renames the specified instance. This will update the instance references in the entire app.
+
+#### Params
+- **String** `oldName`: The old instance name.
+- **String** `newName`: The new instance name.
+- **Function** `cb`: The callback function.
+
+### `toJSON()`
+This function is called internally when `JSON.stringify`-ing the things.
+
+#### Return
+- **Object** The object that should be stringified.
+
+### `addInstance(ins)`
+Adds a new instance.
+
+#### Params
+- **Object** `ins`: The Engine instance you want to add.
+
+#### Return
+- **Instance** The instance object.
 
 ## How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
