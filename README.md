@@ -114,6 +114,12 @@ Adds a new instance.
 #### Return
 - **Instance** The instance object.
 
+### `toObject()`
+Converts the internal data into an raw-json object that can be written back to disk/database.
+
+#### Return
+- **Object** An object containing the instance names as fields and the instance content as values.
+
 ## How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
 
